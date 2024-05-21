@@ -16,6 +16,17 @@ module.exports.updatePassword = async (req,res) => {
     });
 };
 
+module.exports.deleteUser = async (req,res) => {
+  const mail = req.mail;
+  const deleteUser = User.deleteUser(mail);
+  if (deleteUser instanceof Error) {
+    res.status(400).json({error: deleteUser});
+  } else {
+    res.cookie()
+    res.clearCookie("token").redirect("/");
+  }
+}
+
 module.exports.getAllUsers = async (req,res) => {
     const mail = req.mail;
     if (mail !== process.env.ADMIN) {

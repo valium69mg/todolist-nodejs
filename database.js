@@ -102,3 +102,15 @@ module.exports.updateUserPassword = async function (mail,newPassword,client) {
     client.end();
   }
 };
+
+// DELETE USER
+module.exports.deleteUser = async function (mail,client) {
+  try {
+    const response = await client.query("DELETE FROM users WHERE mail=$1",[mail]);
+    return true;
+  }catch(err){
+    return err;
+  }finally{
+    client.end();
+  }
+};

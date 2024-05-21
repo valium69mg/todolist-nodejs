@@ -11,4 +11,7 @@ router.get('/get/allUsers', jwtAuth.validateJwt, userController.getAllUsers);
 // UPDATE USER PASSWORD
 router.post('/update/password',jwtAuth.validateJwt, userController.updatePassword);
 
+//DELETE USER
+router.get('/deleteUser', jwtAuth.validateJwt, userController.deleteUser);
+
 module.exports = router;

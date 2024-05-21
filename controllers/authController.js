@@ -14,7 +14,7 @@ module.exports.signup_post = async (req,res) => {
         if (createUser instanceof Error) {
             res.status(400).json({error: 'Oops, something went wrong'}); 
         } else {
-            res.status(201).redirect('login');
+            res.status(201).redirect('/');
         }
         
     });  
@@ -26,18 +26,23 @@ module.exports.login_get = async (req,res) => {
 module.exports.login_post = async (req,res) => {
     const {mail,password} = req.body; 
     const userHash = await User.getUserHash(mail);
+    if (userHash instanceof Function) {
+        res.redirect('/');
+    }
     bcrypt.compare(password, userHash, function(err, result) {
-        if (result === false) {res.status(403).json({error:"Invalid Login"})}
+        // BAD PASSWORD
+        if (result === false) {res.render('login.ejs')}
         else {
             const token = jwt.sign(mail,process.env.MY_SECRET);
             res.cookie("token",token,{
                 httpOnly: true,
-            });     
+            });   
+            res.redirect('/');
         }  
-        res.redirect("/"); 
+            
     });
 };
 
 module.exports.logout_get = async (req,res) => {
-    res.clearCookie("token").render("login.ejs");
+    res.clearCookie("token").redirect("/");
 };

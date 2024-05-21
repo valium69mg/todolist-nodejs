@@ -66,3 +66,15 @@ module.exports.updateUserPassword = async function (mail,newPassword) {
         return true;
     }
 };
+
+// DELETE USER
+module.exports.deleteUser = async function (mail) {
+    const client = await databaseController.createClient();
+    await client.connect();
+    const response = await databaseController.deleteUser(mail,client);
+    if (response instanceof Error) {
+        return Error;
+    } else {
+        return true;
+    }
+};
