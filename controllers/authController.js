@@ -14,13 +14,14 @@ module.exports.signup_post = async (req,res) => {
         if (createUser instanceof Error) {
             res.status(400).json({error: 'Oops, something went wrong'}); 
         } else {
-            res.status(201).json({action: 'User registered!'});
+            res.status(201).redirect('login');
         }
+        
     });  
 }
 
 module.exports.login_get = async (req,res) => {
-    res.send('login get');
+    res.render('login.ejs');
 }
 module.exports.login_post = async (req,res) => {
     const {mail,password} = req.body; 
@@ -31,12 +32,12 @@ module.exports.login_post = async (req,res) => {
             const token = jwt.sign(mail,process.env.MY_SECRET);
             res.cookie("token",token,{
                 httpOnly: true,
-            });
-            res.redirect("/"); 
+            });     
         }  
+        res.redirect("/"); 
     });
 };
 
 module.exports.logout_get = async (req,res) => {
-    res.clearCookie("token").redirect("/auth/login");
+    res.clearCookie("token").render("login.ejs");
 };
