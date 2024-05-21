@@ -3,7 +3,7 @@ var jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 module.exports.signup_get = async (req,res) => {
-    res.render("partials/signup.ejs");
+    res.render("signup.ejs");
 }
 
 module.exports.signup_post = async (req,res) => {

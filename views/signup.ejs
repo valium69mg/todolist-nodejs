@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SignUp</title>
-</head>
-<body>
+<%- include('./partials/head.ejs') %>
     <h1> Sign Up </h1>
     <form method="POST" action="/auth/signup" >
         <label for="mail"><b>Email</b></label>
@@ -16,6 +9,4 @@
 
         <button type="submit"> Sign Up</button>
     </form>
- 
-</body>
-</html>
+<%- include('./partials/footer.ejs') %>
