@@ -5,7 +5,7 @@ module.exports.createTask = async (req,res) => {
     // req.mail is defined on the cookieJwtAuth middleware
     const newTask = await Task.createTask(description,req.mail);
     if (newTask === true) {
-        res.sendStatus(201);
+        res.status(201).redirect('/');
     } else {
         res.sendStatus(403);
     }

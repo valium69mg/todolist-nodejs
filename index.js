@@ -4,7 +4,7 @@ const user = require('./routes/userRoutes.js');
 const tasks = require('./routes/tasksRoutes.js');
 const jwtAuth = require('./middleware/cookieJwtAuth.js');
 var cookieParser = require('cookie-parser')
-const userController = require('./controllers/userController.js');
+const Task = require('./models/Task.js');
 
 // .env
 require('dotenv').config();
@@ -34,8 +34,9 @@ app.use('/user',user);
 app.use('/tasks',tasks);
 
 // routes
-app.get('/',jwtAuth.validateJwt,(req, res) => {
-  const data = {auth:true};
+app.get('/',jwtAuth.validateJwt, async (req, res) => {
+  const tasks = await Task.getAllTasks(req.mail);
+  const data = {auth:true,tasks};
   res.render('home.ejs',{data});
 });
 

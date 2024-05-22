@@ -1,6 +1,18 @@
 <%- include('./partials/head.ejs') %>
 <%- include('./navbar.ejs') %>
+
 <div class="homeBody">
-    <h1> Welcome to my server! </h1>
+    <% if (data.tasks) { %>
+        <div class="tasks">
+            <h2> Tasks: </h2>
+            <% data.tasks.forEach((task) => {%>
+                <div class="taskBody">
+                    <p>  <span> Task: </span> <%= task.description %> </p>
+                    <p> <span> Status: </span>  <%= task.status %> </p>
+                    <p>  <span> Created at: </span> <%= task.created_at %> </p>
+                </div>
+            <% }); %>
+        </div>
+    <% } %>
 </div>
 <%- include('./partials/footer.ejs') %>

@@ -4,6 +4,7 @@
         <a href="/auth/login"> Log In </a>
         <% if (typeof data !== 'undefined') {%>
             <% if (data.auth === true) { %>
+                <a class="logoutLink" href="/tasks/createTask"> Create New Task </a>
                 <a class="logoutLink" href="/auth/logout"> Log Out </a>
             <% } %>
         <%} %>
