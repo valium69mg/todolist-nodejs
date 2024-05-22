@@ -22,12 +22,17 @@ module.exports.getAllTasks = async (req,res) => {
 
 module.exports.updateTask = async (req,res) => {
     const {status,id} = req.body;
-    const updateTask = await Task.updateTask(req.mail,status,parseInt(id));
-    if (updateTask === true) {
-        res.json({action:"task status changed"});
+    if (status === 'pending' | status === 'completed') {
+        const updateTask = await Task.updateTask(req.mail,status,parseInt(id));
+        if (updateTask === true) {
+            res.json({action:"task status changed"});
+        } else {
+            res.json({error: "task status not updated"});
+        }
     } else {
         res.json({error: "task status not updated"});
     }
+    
 };
 
 module.exports.deleteTask = async (req,res) => {
