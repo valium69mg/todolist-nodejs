@@ -11,6 +11,9 @@ require('dotenv').config();
 const app = express();
 const port = 3000;
 
+// public folder
+app.use(express.static(__dirname + '/public'));
+
 // cookie parser
 app.use(cookieParser());
 
@@ -28,7 +31,8 @@ app.use('/user',user);
 
 // routes
 app.get('/',jwtAuth.validateJwt,(req, res) => {
-  res.send('Welcome to my server!');
+  const data = {auth:true};
+  res.render('home.ejs',{data});
 });
 
 
