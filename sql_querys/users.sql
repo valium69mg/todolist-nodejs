@@ -1,6 +1,7 @@
 CREATE TABLE users (
-    userid SERIAL NOT NULL,
+    id SERIAL NOT NULL,
     mail varchar(255) NOT NULL,
     password varchar(255) NOT NULL,
-    created_at DATE DEFAULT CURRENT_DATE
+    created_at DATE DEFAULT CURRENT_DATE,
+    PRIMARY KEY (id)
 );

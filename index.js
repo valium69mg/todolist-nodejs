@@ -1,6 +1,7 @@
 const express = require("express");
 const auth = require('./routes/authRoutes.js');
 const user = require('./routes/userRoutes.js');
+const tasks = require('./routes/tasksRoutes.js');
 const jwtAuth = require('./middleware/cookieJwtAuth.js');
 var cookieParser = require('cookie-parser')
 const userController = require('./controllers/userController.js');
@@ -28,6 +29,9 @@ app.use('/auth',auth);
 
 //user routes
 app.use('/user',user);
+
+// tasks routes
+app.use('/tasks',tasks);
 
 // routes
 app.get('/',jwtAuth.validateJwt,(req, res) => {
