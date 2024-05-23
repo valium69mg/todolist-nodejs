@@ -1,7 +1,9 @@
 <nav class="navbar">
     <a href="/"> Home </a>
-        <a href="/auth/signup"> Sign Up </a>
-        <a href="/auth/login"> Log In </a>
+        <% if (typeof data === 'undefined')  {%>
+            <a href="/auth/signup"> Sign Up </a>
+            <a href="/auth/login"> Log In </a>
+        <% } %>
         <% if (typeof data !== 'undefined') {%>
             <% if (data.auth === true) { %>
                 <a class="logoutLink" href="/tasks/createTask"> Create New Task </a>
