@@ -1,4 +1,5 @@
 const Task = require('../models/Task');
+const jwt = require("jsonwebtoken");
 
 module.exports.createTask = async (req,res) => {
     const {description} = req.body;
@@ -25,23 +26,26 @@ module.exports.updateTask = async (req,res) => {
     if (status === 'pending' | status === 'completed') {
         const updateTask = await Task.updateTask(req.mail,status,parseInt(id));
         if (updateTask === true) {
-            res.json({action:"task status changed"});
+            res.status(200).redirect('/');
         } else {
-            res.json({error: "task status not updated"});
+            res.status(403).redirect('/');
         }
     } else {
-        res.json({error: "task status not updated"});
+        res.status(400).redirect('/');
     }
     
 };
 
 module.exports.deleteTask = async (req,res) => {
     const {id} = req.body;
+    const token = req.cookies.token;
+    const mail = jwt.verify(token,process.env.MY_SECRET);
+    req.mail = mail;
     const deleteTask = await Task.deleteTask(req.mail,id);
     if (deleteTask instanceof Error) {
         res.json({error: deleteTask});
     } else if(deleteTask === true) {
-        res.json({action:'task deleted'})
+        res.status(200).redirect('/');
     } else {
         res.send("Oops, something went wrong");
     }

@@ -36,7 +36,7 @@ app.use('/tasks',tasks);
 // routes
 app.get('/',jwtAuth.validateJwt, async (req, res) => {
   const tasks = await Task.getAllTasks(req.mail);
-  const data = {auth:true,tasks};
+  const data = {auth:true,tasks,mail:req.mail};
   res.render('home.ejs',{data});
 });
 

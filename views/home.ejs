@@ -10,6 +10,20 @@
                     <p>  <span> Task: </span> <%= task.description %> </p>
                     <p> <span> Status: </span>  <%= task.status %> </p>
                     <p>  <span> Created at: </span> <%= task.created_at %> </p>
+                    <form method="POST" action="/tasks/updateTask">
+                        <input type="hidden" name="status" id="status" value="pending"/>
+                        <input type="hidden" name="id" id="id" value=<%=task.taskid%> />
+                        <button type="submit"> Mark as pending </button>
+                    </form>
+                    <form method="POST" action="/tasks/updateTask">
+                        <input type="hidden" name="status" id="status" value="completed">
+                        <input type="hidden" name="id" id="id" value=<%=task.taskid%> />
+                        <button type="submit"> Mark as completed </button>
+                    </form>
+                    <form method="POST" action="/tasks/deleteTask">
+                        <input type="hidden" name="id" id="id" value=<%=task.taskid%> />
+                        <button type="submit"> Delete task </button>
+                    </form>
                 </div>
             <% }); %>
         </div>
